@@ -76,3 +76,36 @@ function applyFilters() {
   }
   renderCards(filtered);
 }
+const addButton = document.getElementById("addButton");
+const modal = document.getElementById("addModal");
+const saveButton = document.getElementById("saveTaste");
+
+addButton.onclick = () => {
+  modal.classList.remove("hidden");
+};
+
+modal.onclick = (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+};
+
+saveButton.onclick = () => {
+  const newItem = {
+    id: "local-" + Date.now(),
+    type: document.getElementById("typeInput").value,
+    title: document.getElementById("titleInput").value,
+    description: document.getElementById("descInput").value,
+    thumbnail: document.getElementById("thumbInput").value,
+    tags: document.getElementById("tagsInput").value.split(",").map(t => t.trim())
+  };
+
+  allData.push(newItem);
+  localStorage.setItem("localTaste", JSON.stringify(allData));
+
+  renderCards(allData);
+  renderTagFilters(allData);
+
+  modal.classList.add("hidden");
+};
+
