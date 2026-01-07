@@ -124,3 +124,7 @@ button.active {
   padding: 8px;
   font-size: 14px;
 }
+.modal.hidden {
+  display: none;
+}
+
