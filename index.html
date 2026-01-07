@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Everyday Taste</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>Everyday Taste</h1>
+  <p class="subtitle">밝고 정돈된 일상의 취향 기록</p>
+</header>
+
+<main>
+
+  <div class="filter-buttons">
+    <button data-filter="all" class="active">전체</button>
+    <button data-filter="music">노래</button>
+    <button data-filter="item">물건</button>
+    <button data-filter="place">장소</button>
+  </div>
+
+  <div class="tag-filters" id="tagFilters"></div>
+  <div class="card-grid" id="cardGrid"></div>
+
+</main>
+
+<footer>
+  <p>© Everyday Taste</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
