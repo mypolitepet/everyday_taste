@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTag = "all";
   let editTargetId = null;
 
- fetch("data.json")
-  .then(res => res.json())
-  .then(data => {
-    const localData = JSON.parse(localStorage.getItem("localTaste")) || [];
-    allData = [...data, ...localData];
-    applyFilters();
-    renderTagFilters(allData);
-  });
+  fetch("data.json")
+    .then(res => res.json())
+    .then(data => {
+      const localData = JSON.parse(localStorage.getItem("localTaste")) || [];
+      allData = [...data, ...localData];
+      applyFilters();
+      renderTagFilters(allData);
+    });
 
   function renderCards(data) {
     grid.innerHTML = "";
@@ -59,14 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
           e.stopPropagation();
           openEditModal(item);
         };
+      }
 
-        card.onclick = () => {
-          location.href = `detail.html?id=${item.id}`;
-        };
+      card.onclick = () => {
+        location.href = `detail.html?id=${item.id}`;
+      };
 
-        grid.appendChild(card);
-
-   });
+      grid.appendChild(card);
+    });
   }
 
   function renderTagFilters(data) {
@@ -102,18 +102,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function applyFilters() {
-  let filtered = [...allData];
+    let filtered = [...allData];
 
-  if (currentCategory !== "all") {
-    filtered = filtered.filter(item => item.type === currentCategory);
+    if (currentCategory !== "all") {
+      filtered = filtered.filter(item => item.type === currentCategory);
+    }
+
+    if (currentTag !== "all") {
+      filtered = filtered.filter(item => item.tags.includes(currentTag));
+    }
+
+    renderCards(filtered);
   }
-
-  if (currentTag !== "all") {
-    filtered = filtered.filter(item => item.tags.includes(currentTag));
-  }
-
-  renderCards(filtered);
-}
 
   addButton.onclick = () => {
     openAddModal();
@@ -151,19 +151,19 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTagFilters(allData);
   };
 
- function deleteCard(id) {
-  if (!confirm("삭제할까요?")) return;
+  function deleteCard(id) {
+    if (!confirm("삭제할까요?")) return;
 
-  allData = allData.filter(item => item.id !== id);
+    allData = allData.filter(item => item.id !== id);
 
-  localStorage.setItem(
-    "localTaste",
-    JSON.stringify(allData.filter(i => i.id.startsWith("local-")))
-  );
+    localStorage.setItem(
+      "localTaste",
+      JSON.stringify(allData.filter(i => i.id.startsWith("local-")))
+    );
 
-  applyFilters();
-  renderTagFilters(allData);
-}
+    applyFilters();
+    renderTagFilters(allData);
+  }
 
   function openAddModal() {
     editTargetId = null;
@@ -195,12 +195,3 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
-
-
-
-
-
-
-
-
-
