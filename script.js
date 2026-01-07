@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("localTaste", JSON.stringify(localOnly));
 
     closeModal();
-    renderCards(allData);
+    applyFilters();
     renderTagFilters(allData);
   };
 
@@ -182,3 +182,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
+
