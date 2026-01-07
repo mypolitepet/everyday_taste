@@ -147,16 +147,19 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTagFilters(allData);
   };
 
-  function deleteCard(id) {
-    if (!confirm("삭제할까요?")) return;
-    allData = allData.filter(item => item.id !== id);
-    localStorage.setItem(
-      "localTaste",
-      JSON.stringify(allData.filter(i => i.id.startsWith("local-")))
-    );
-    renderCards(allData);
-    renderTagFilters(allData);
-  }
+ function deleteCard(id) {
+  if (!confirm("삭제할까요?")) return;
+
+  allData = allData.filter(item => item.id !== id);
+
+  localStorage.setItem(
+    "localTaste",
+    JSON.stringify(allData.filter(i => i.id.startsWith("local-")))
+  );
+
+  applyFilters();
+  renderTagFilters(allData);
+}
 
   function openAddModal() {
     editTargetId = null;
@@ -188,5 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
+
 
 
