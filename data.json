@@ -2,19 +2,28 @@
   {
     "id": "song-1",
     "type": "music",
-    "title": "Favorite Song",
-    "description": "밝고 차분한 분위기의 노래",
+    "title": "Everyday Song",
+    "description": "하루를 밝게 만들어주는 노래",
     "youtubeId": "8yTYl7_kJXg",
     "thumbnail": "https://img.youtube.com/vi/8yTYl7_kJXg/hqdefault.jpg",
-    "tags": ["bright", "calm", "daily"]
+    "tags": ["bright", "daily"]
   },
   {
     "id": "item-1",
     "type": "item",
-    "title": "미니멀 가방",
-    "description": "가볍게 들기 좋은 데일리 가방",
+    "title": "미니멀 노트",
+    "description": "매일 쓰는 정돈된 기록 도구",
     "thumbnail": "https://via.placeholder.com/400",
     "image": "https://via.placeholder.com/800",
     "tags": ["minimal", "daily"]
+  },
+  {
+    "id": "place-1",
+    "type": "place",
+    "title": "조용한 카페",
+    "description": "혼자 생각하기 좋은 공간",
+    "thumbnail": "https://via.placeholder.com/400",
+    "image": "https://via.placeholder.com/800",
+    "tags": ["calm", "bright"]
   }
 ]
