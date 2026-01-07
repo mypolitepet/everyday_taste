@@ -1,24 +1,26 @@
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-const container = document.getElementById("detail");
 
-fetch("data.json")
-  .then(res => res.json())
-  .then(data => {
-    const item = data.find(i => i.id === id);
-    if (!item) return;
+const image = document.getElementById("detailImage");
+const title = document.getElementById("detailTitle");
+const desc = document.getElementById("detailDesc");
+const tags = document.getElementById("detailTags");
 
-    if (item.type === "music") {
-      container.innerHTML = `
-        <h1>${item.title}</h1>
-        <iframe src="https://www.youtube.com/embed/${item.youtubeId}" allowfullscreen></iframe>
-        <p>${item.description}</p>
-      `;
-    } else {
-      container.innerHTML = `
-        <h1>${item.title}</h1>
-        <img src="${item.image}">
-        <p>${item.description}</p>
-      `;
-    }
-  });
+Promise.all([
+  fetch("data.json").then(r => r.json()),
+  JSON.parse(localStorage.getItem("localTaste")) || []
+]).then(([data, local]) => {
+  const all = [...data, ...local];
+  const item = all.find(i => i.id === id);
+
+  if (!item) {
+    title.textContent = "존재하지 않는 카드입니다";
+    return;
+  }
+
+  image.src = item.image || item.thumbnail;
+  title.textContent = item.title;
+  desc.textContent = item.description;
+  tags.innerHTML = item.tags.map(t => `<span>#${t}</span>`).join(" ");
+});
+
