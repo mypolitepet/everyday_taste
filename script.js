@@ -3,13 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const tagContainer = document.getElementById("tagFilters");
   const categoryButtons = document.querySelectorAll(".filter-buttons button");
 
-  const addButton = document.getElementById("addButton");
   const modal = document.getElementById("addModal");
+  const addButton = document.getElementById("addButton");
   const saveButton = document.getElementById("saveTaste");
+  const modalTitle = document.getElementById("modalTitle");
+
+  const typeInput = document.getElementById("typeInput");
+  const titleInput = document.getElementById("titleInput");
+  const descInput = document.getElementById("descInput");
+  const thumbInput = document.getElementById("thumbInput");
+  const tagsInput = document.getElementById("tagsInput");
 
   let allData = [];
   let currentCategory = "all";
   let currentTag = "all";
+  let editTargetId = null;
 
   fetch("data.json")
     .then(res => res.json())
@@ -25,7 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
     data.forEach(item => {
       const card = document.createElement("div");
       card.className = "card";
+
+      const isLocal = item.id.startsWith("local-");
+
       card.innerHTML = `
+        ${isLocal ? `<div class="card-actions">
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">×</button>
+        </div>` : ""}
         <img src="${item.thumbnail}">
         <h3>${item.title}</h3>
         <p>${item.description}</p>
@@ -33,6 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
           ${item.tags.map(t => `<span>#${t}</span>`).join("")}
         </div>
       `;
+
+      if (isLocal) {
+        card.querySelector(".delete-btn").onclick = (e) => {
+          e.stopPropagation();
+          deleteCard(item.id);
+        };
+
+        card.querySelector(".edit-btn").onclick = (e) => {
+          e.stopPropagation();
+          openEditModal(item);
+        };
+      }
+
       grid.appendChild(card);
     });
   }
@@ -81,32 +109,76 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   addButton.onclick = () => {
-    modal.classList.remove("hidden");
-  };
-
-  modal.onclick = (e) => {
-    if (e.target === modal) {
-      modal.classList.add("hidden");
-    }
+    openAddModal();
   };
 
   saveButton.onclick = () => {
-    const newItem = {
-      id: "local-" + Date.now(),
-      type: document.getElementById("typeInput").value,
-      title: document.getElementById("titleInput").value,
-      description: document.getElementById("descInput").value,
-      thumbnail: document.getElementById("thumbInput").value,
-      tags: document.getElementById("tagsInput").value.split(",").map(t => t.trim())
-    };
+    const tags = tagsInput.value.split(",").map(t => t.trim()).filter(Boolean);
 
-    const localOnly = JSON.parse(localStorage.getItem("localTaste")) || [];
-    localOnly.push(newItem);
+    if (editTargetId) {
+      const target = allData.find(item => item.id === editTargetId);
+      target.type = typeInput.value;
+      target.title = titleInput.value;
+      target.description = descInput.value;
+      target.thumbnail = thumbInput.value;
+      target.tags = tags;
+    } else {
+      allData.push({
+        id: "local-" + Date.now(),
+        type: typeInput.value,
+        title: titleInput.value,
+        description: descInput.value,
+        thumbnail: thumbInput.value,
+        tags
+      });
+    }
+
+    const localOnly = allData.filter(item => item.id.startsWith("local-"));
     localStorage.setItem("localTaste", JSON.stringify(localOnly));
 
-    allData.push(newItem);
+    closeModal();
     renderCards(allData);
     renderTagFilters(allData);
+  };
+
+  function deleteCard(id) {
+    if (!confirm("삭제할까요?")) return;
+    allData = allData.filter(item => item.id !== id);
+    localStorage.setItem(
+      "localTaste",
+      JSON.stringify(allData.filter(i => i.id.startsWith("local-")))
+    );
+    renderCards(allData);
+    renderTagFilters(allData);
+  }
+
+  function openAddModal() {
+    editTargetId = null;
+    modalTitle.textContent = "취향 추가";
+    typeInput.value = "music";
+    titleInput.value = "";
+    descInput.value = "";
+    thumbInput.value = "";
+    tagsInput.value = "";
+    modal.classList.remove("hidden");
+  }
+
+  function openEditModal(item) {
+    editTargetId = item.id;
+    modalTitle.textContent = "취향 수정";
+    typeInput.value = item.type;
+    titleInput.value = item.title;
+    descInput.value = item.description;
+    thumbInput.value = item.thumbnail;
+    tagsInput.value = item.tags.join(", ");
+    modal.classList.remove("hidden");
+  }
+
+  function closeModal() {
     modal.classList.add("hidden");
+  }
+
+  modal.onclick = (e) => {
+    if (e.target === modal) closeModal();
   };
 });
