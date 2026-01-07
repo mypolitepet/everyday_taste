@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTag = "all";
   let editTargetId = null;
 
+  // 데이터 불러오기
   fetch("data.json")
     .then(res => res.json())
     .then(data => {
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderTagFilters(allData);
     });
 
+  // 카드 렌더링
   function renderCards(data) {
     grid.innerHTML = "";
     data.forEach(item => {
@@ -61,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
       }
 
+      // 카드 클릭 이벤트와 appendChild는 if 밖
       card.onclick = () => {
         location.href = `detail.html?id=${item.id}`;
       };
@@ -69,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 태그 필터 렌더링
   function renderTagFilters(data) {
     const tags = new Set();
     data.forEach(item => item.tags.forEach(tag => tags.add(tag)));
@@ -92,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 카테고리 버튼 필터
   categoryButtons.forEach(btn => {
     btn.onclick = () => {
       categoryButtons.forEach(b => b.classList.remove("active"));
@@ -101,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
+  // 필터 적용
   function applyFilters() {
     let filtered = [...allData];
 
@@ -115,9 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCards(filtered);
   }
 
-  addButton.onclick = () => {
-    openAddModal();
-  };
+  // 모달 열기/닫기
+  addButton.onclick = () => openAddModal();
 
   saveButton.onclick = () => {
     const tags = tagsInput.value.split(",").map(t => t.trim()).filter(Boolean);
@@ -155,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!confirm("삭제할까요?")) return;
 
     allData = allData.filter(item => item.id !== id);
-
     localStorage.setItem(
       "localTaste",
       JSON.stringify(allData.filter(i => i.id.startsWith("local-")))
