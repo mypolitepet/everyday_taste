@@ -129,3 +129,19 @@ button.active {
   padding: 8px;
   font-size: 14px;
 }
+/* ===== 클릭 차단 완전 제거 패치 ===== */
+
+.modal {
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+  pointer-events: none;
+}
+
+/* 혹시 모를 전체 덮는 요소 차단 */
+body > * {
+  pointer-events: auto;
+}
+
