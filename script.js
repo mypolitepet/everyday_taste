@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         grid.appendChild(card);
 
-     })
+   });
   }
 
   function renderTagFilters(data) {
@@ -195,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
+
 
 
 
