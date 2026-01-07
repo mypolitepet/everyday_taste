@@ -98,15 +98,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function applyFilters() {
-    let filtered = allData;
-    if (currentCategory !== "all") {
-      filtered = filtered.filter(item => item.type === currentCategory);
-    }
-    if (currentTag !== "all") {
-      filtered = filtered.filter(item => item.tags.includes(currentTag));
-    }
-    renderCards(filtered);
+  let filtered = [...allData];
+
+  if (currentCategory !== "all") {
+    filtered = filtered.filter(item => item.type === currentCategory);
   }
+
+  if (currentTag !== "all") {
+    filtered = filtered.filter(item => item.tags.includes(currentTag));
+  }
+
+  renderCards(filtered);
+}
 
   addButton.onclick = () => {
     openAddModal();
@@ -135,6 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const localOnly = allData.filter(item => item.id.startsWith("local-"));
     localStorage.setItem("localTaste", JSON.stringify(localOnly));
+
+    currentCategory = "all";
+    currentTag = "all";
 
     closeModal();
     applyFilters();
@@ -182,4 +188,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
+
 
