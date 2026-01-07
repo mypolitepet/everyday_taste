@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", () => {
 const grid = document.getElementById("cardGrid");
 const tagContainer = document.getElementById("tagFilters");
 const categoryButtons = document.querySelectorAll(".filter-buttons button");
@@ -106,8 +107,6 @@ saveButton.onclick = () => {
 
   renderCards(allData);
   renderTagFilters(allData);
-
   modal.classList.add("hidden");
 };
-
-
+});
