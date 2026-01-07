@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTag = "all";
   let editTargetId = null;
 
-  fetch("data.json")
-    .then(res => res.json())
-    .then(data => {
-      const localData = JSON.parse(localStorage.getItem("localTaste")) || [];
-      allData = [...data, ...localData];
-      renderCards(allData);
-      renderTagFilters(allData);
-    });
+ fetch("data.json")
+  .then(res => res.json())
+  .then(data => {
+    const localData = JSON.parse(localStorage.getItem("localTaste")) || [];
+    allData = [...data, ...localData];
+    applyFilters();
+    renderTagFilters(allData);
+  });
 
   function renderCards(data) {
     grid.innerHTML = "";
@@ -191,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
+
 
 
 
