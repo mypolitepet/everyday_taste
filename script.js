@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
           openEditModal(item);
         };
       }
+      card.onclick = () => {
+        location.href = `detail.html?id=${item.id}`;
+      };
 
       grid.appendChild(card);
     });
@@ -191,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) closeModal();
   };
 });
+
 
 
 
