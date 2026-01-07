@@ -174,5 +174,31 @@ body > * {
 .card {
   position: relative;
 }
+/* ===== 상세 페이지 (detail.html) ===== */
 
+.detail {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
 
+.detail img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.detail h2 {
+  margin-bottom: 10px;
+}
+
+.detail p {
+  color: #555;
+  line-height: 1.6;
+}
+
+#detailTags span {
+  margin-right: 8px;
+  font-size: 13px;
+  color: #777;
+}
