@@ -24,6 +24,26 @@
 
   <div class="tag-filters" id="tagFilters"></div>
   <div class="card-grid" id="cardGrid"></div>
+<button id="addButton">+</button>
+
+<div id="addModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>취향 추가</h2>
+
+    <select id="typeInput">
+      <option value="music">노래</option>
+      <option value="item">물건</option>
+      <option value="place">장소</option>
+    </select>
+
+    <input id="titleInput" placeholder="제목" />
+    <input id="descInput" placeholder="설명" />
+    <input id="thumbInput" placeholder="썸네일 이미지 URL" />
+    <input id="tagsInput" placeholder="태그 (쉼표로 구분)" />
+
+    <button id="saveTaste">저장</button>
+  </div>
+</div>
 
 </main>
 
@@ -34,3 +54,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
