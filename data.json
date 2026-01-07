@@ -1,0 +1,20 @@
+[
+  {
+    "id": "song-1",
+    "type": "music",
+    "title": "Favorite Song",
+    "description": "밝고 차분한 분위기의 노래",
+    "youtubeId": "8yTYl7_kJXg",
+    "thumbnail": "https://img.youtube.com/vi/8yTYl7_kJXg/hqdefault.jpg",
+    "tags": ["bright", "calm", "daily"]
+  },
+  {
+    "id": "item-1",
+    "type": "item",
+    "title": "미니멀 가방",
+    "description": "가볍게 들기 좋은 데일리 가방",
+    "thumbnail": "https://via.placeholder.com/400",
+    "image": "https://via.placeholder.com/800",
+    "tags": ["minimal", "daily"]
+  }
+]
