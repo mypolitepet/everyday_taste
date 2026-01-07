@@ -108,5 +108,6 @@ saveButton.onclick = () => {
   renderCards(allData);
   renderTagFilters(allData);
   modal.classList.add("hidden");
-};
+ };
+
 });
