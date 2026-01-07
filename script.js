@@ -9,10 +9,11 @@ let currentTag = "all";
 fetch("data.json")
   .then(res => res.json())
   .then(data => {
-    allData = data;
-    renderCards(data);
-    renderTagFilters(data);
-  });
+  const localData = JSON.parse(localStorage.getItem("localTaste")) || [];
+  allData = [...data, ...localData];
+  renderCards(allData);
+  renderTagFilters(allData);
+});
 
 function renderCards(data) {
   grid.innerHTML = "";
@@ -108,4 +109,5 @@ saveButton.onclick = () => {
 
   modal.classList.add("hidden");
 };
+
 
